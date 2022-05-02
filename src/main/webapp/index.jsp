@@ -16,14 +16,15 @@
 
   <div class="info">
     <h2>条件</h2>
-    <p>
-      石の総数：<span>25個</span>
-    </p>
-    <p>
-      1度に取れる石の数：<span>3個</span>
-    </p>
-
-    <form action="play.jsp">
+    <form action ="play.jsp" method="post">
+    <label>石の総数</label>
+    <input type="number" name="stoneNum" min="1"><br>
+    <label>1度に取れる石の数</label>
+    <input type ="number" name="stoneAtOnece" min ="1"><br>
+    <label>プレイヤーの数</label>
+    <input type="number" name="playerNum" min= "2" max="26" value="2"><br>
+    <label>石の記号</label>
+    <input type="text" name ="stoneChar" value="●"><br>
       <button class="btn" type="submit">始める</button>
     </form>
   </div>

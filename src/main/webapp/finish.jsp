@@ -1,17 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
 <%
-String player = (String)session.getAttribute("player");
-	switch (player) {
-	case "A":
-		player = "B";
-		break;
-	case "B":
-		player = "A";
-		break;
-	default:
-
-	}
+char player = (char)session.getAttribute("player");
+/*int playerNum = (int)session.getAttribute("playerNum");
+if(player< playerNum){
+  	
+		player += 1;
+}else{
+	player = 63;
+}
+*/
 %>
 <!DOCTYPE html>
 <html>
@@ -24,7 +22,7 @@ String player = (String)session.getAttribute("player");
   <h1>石取りゲーム</h1>
   <div class="info">
     <h2>
-      勝者：プレイヤー<%= player %>！！
+      敗者：プレイヤー<%= player %>！！
     </h2>
     <form action="index.jsp">
       <button class="btn" type="submit">先頭に戻る</button>

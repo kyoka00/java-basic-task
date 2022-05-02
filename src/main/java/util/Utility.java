@@ -23,10 +23,10 @@ public class Utility {
 
 
 
-	public static String getStoneDisplayHtml (int totalNum) {
+	public static String getStoneDisplayHtml (int totalNum, String stoneChar) {
 		String stone ="";
 		for (int i=1 ; i <= totalNum; i++) {
-			stone = stone + "●";
+			stone = stone + stoneChar;
 			if (i % 10 ==0) {
 				stone = stone + "<br>";
 			}
