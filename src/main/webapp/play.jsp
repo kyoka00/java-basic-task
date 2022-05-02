@@ -1,18 +1,60 @@
 <%@ page import = "util.Utility" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
-<%
-        
-    // 残数の更新処理(残数の取得、更新、保存など)    
-    int totalNum = 25;  // 残数用の変数。仮で25をセットしている。必要に応じて変更
+<% 
+	String nums = request.getParameter("num");
+	
+	
+    // 残数の更新処理(残数の取得、更新、保存など) 
+    int totalNum;
+    String player;
+    String stone ="";
     
-    // プレイヤーの切替処理(プレイヤーの取得、切替、保存など)
-    String player = "A";  // プレイヤー用の変数。仮で"A"をセットしている。必要に応じて変更
+    if (session.getAttribute("totalNum")==null){
+    	totalNum = 25;  // 残数用の変数。仮で25をセットしている。必要に応じて変更
+    }else{
+    	totalNum =(int)session.getAttribute("totalNum");
+    }
     
-    // 残数が0以下の場合、結果ページへ遷移
-    // (responseオブジェクトのsendRedirectメソッドを使用する)
+    if (session.getAttribute("player")== null){
+    	player ="A";
+    }else {
+    	player=(String)session.getAttribute("player");
+    	
+    }
     
-%>
+       	  
+
+      		if (Utility.isNullOrEmpty(nums)== false){
+      			
+      		int num = Integer.parseInt(nums);
+      		totalNum -= num;
+      		if(totalNum >=1){
+      			//表示
+      			stone = Utility.getStoneDisplayHtml(totalNum);
+      			
+      			
+      			switch (player) {
+      			case "A":
+      				player = "B";
+      				break;
+      			case "B":
+      				player = "A";
+      				break;
+      			default:
+
+      			}
+      			session.setAttribute("totalNum",totalNum);
+     			 session.setAttribute("player", player);
+      		}else { 
+      			response.sendRedirect("finish.jsp");
+      		}
+      	
+      		}else{
+      			stone =Utility.getStoneDisplayHtml(totalNum);
+      		}
+          
+      %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,19 +67,13 @@
 
   <div class="info">
     <h2>
-      残り：xx個
+      残り：<%= totalNum %>個
     </h2>
-    <p class="stone">
-      <%
-          // todo:このprint分は仮の処理。実装が完了したら削除する。
-          // 表示する文字列("●●～")をメソッドを使い取得し、取得した文字列を表示する
-          out.println("●●●●●●●●●●<br>●●●●●●●●●●<br>●●●●●");
-      %>
-    </p>
+    <p><%= stone%></p>
   </div>
   <div class="info">
     <h2>
-      プレイヤーxxの番
+      プレイヤー<%=player %>の番
     </h2>
 
     <form action="play.jsp">
