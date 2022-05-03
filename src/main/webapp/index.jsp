@@ -25,7 +25,7 @@
     <input type="number" name="playerNum" min= "2" max="26" value="2"><br>
     <label>石の記号</label>
     <input type="text" name ="stoneChar" value="●"><br>
-      <button class="btn" type="submit">始める</button>
+    <button class="btn" type="submit">始める</button>
     </form>
   </div>
 </body>

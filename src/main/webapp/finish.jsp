@@ -2,14 +2,7 @@
   pageEncoding="UTF-8"%>
 <%
 char player = (char)session.getAttribute("player");
-/*int playerNum = (int)session.getAttribute("playerNum");
-if(player< playerNum){
-  	
-		player += 1;
-}else{
-	player = 63;
-}
-*/
+
 %>
 <!DOCTYPE html>
 <html>
@@ -21,9 +14,27 @@ if(player< playerNum){
 <body>
   <h1>石取りゲーム</h1>
   <div class="info">
-    <h2>
-      敗者：プレイヤー<%= player %>！！
-    </h2>
+    
+     <%
+     int playerNum = (int)session.getAttribute("playerNum");
+     if(playerNum<=66){
+    	 switch (player){
+    	 case 65:
+    		 player = 66;
+    		 break;
+    	 case 66:
+    		 	player = 65;
+    		 	break;
+    	default:
+    		 		
+    	 }
+     	out.println("<h2>勝者：プレイヤー"+ player +"!!");
+     }else{
+     	out.println("<h2>敗者：プレイヤー"+ player +"!!");
+     }
+     
+     %>
+     
     <form action="index.jsp">
       <button class="btn" type="submit">先頭に戻る</button>
     </form>

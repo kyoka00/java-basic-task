@@ -9,6 +9,16 @@
 	String stoneAtOneces = request.getParameter("stoneAtOnece");
 	String playerNums = request.getParameter("playerNum");
 	String stoneChar = request.getParameter("stoneChar");
+	int stoneAtOnece;
+	
+	if (Utility.isNullOrEmpty(stoneAtOneces) == false){
+		stoneAtOnece = Integer.parseInt(stoneAtOneces); 
+		session.setAttribute("stoneAtOnece", stoneAtOnece);
+	}else if(session.getAttribute("stoneAtOnece")== null){
+		stoneAtOnece =2;
+	}else{
+		stoneAtOnece = (int)session.getAttribute("stoneAtOnece");
+	}
 	
 	int stoneNum;
 	if(stoneNums != null){
@@ -24,27 +34,27 @@
 		stoneChar = (String)session.getAttribute("stoneChar");
 	}
 	
-    // 残数の更新処理(残数の取得、更新、保存など) 
+    
     int totalNum;
     char player;
     String stone ="";
     int playerNum;
     if(playerNums != null){
-    	playerNum= Integer.parseInt(playerNums) + 63;
+    	playerNum= Integer.parseInt(playerNums) + 64;
     	session.setAttribute("playerNum",playerNum);
     }else{
     	playerNum = (int)session.getAttribute("playerNum");
     }
     
     if (session.getAttribute("totalNum")== null){
-    	totalNum = stoneNum;  // 残数用の変数。仮で25をセットしている。必要に応じて変更
+    	totalNum = stoneNum;  
     }else{
     	totalNum =(int)session.getAttribute("totalNum");
     }
     
     if (session.getAttribute("player")== null){
     	
-    	player = (char)playerNum;
+    	player = (char)65;
     }else {
     	player=(char)session.getAttribute("player");
     }
@@ -55,7 +65,7 @@
       			
       		int num = Integer.parseInt(nums);
       		totalNum -= num;
-      		if(totalNum >=1){
+      		if(totalNum >0){
       			//表示
       			stone = Utility.getStoneDisplayHtml(totalNum, stoneChar);
       			
@@ -63,19 +73,10 @@
       		    	
       		    		player += 1;
       		    }else{
-      		    	player = 63;
+      		    	player = 65;
       		    }
-      			/*switch (player) {
-      			case "A":
-      				player = "B";
-      				break;
-      			case "B":
-      				player = "A";
-      				break;
-      			default:
-
-      			}
-      			*/
+      			
+      			
       			session.setAttribute("totalNum",totalNum);
      			 session.setAttribute("player", player);
       		}else { 
@@ -111,8 +112,8 @@
     <form action="play.jsp">
       <p>
         石を
-        <input type="number" name="num" min="1" max=stoneAtOneces>
-        個取る<br> ※1度に<%= stoneAtOneces %>個取れます。
+        <input type="number" name="num" min="1" max=<%= stoneAtOnece%>>
+        個取る<br> ※1度に<%= stoneAtOnece %>個取れます。
       </p>
       <button class="btn" type="submit">決定</button>
     </form>
